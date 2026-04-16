@@ -1,7 +1,7 @@
 import express from "express";
 import { userRouter } from "./routes/users.js";
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 const app = express();
 app.use(express.json());
 

@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx src/server.ts"
+    "dev": "tsx src/server.ts",
+    "push": "drizzle-kit push",
+    "seed": "tsx src/db/seed/index.ts"
   },
   "keywords": [],
   "author": "",
