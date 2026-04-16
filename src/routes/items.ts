@@ -25,7 +25,7 @@ itemsRouter.get("/api/items", async (req, res) => {
 
 itemsRouter.get("/api/items/:id", async (req, res) => {
     const { id } = req.params;
-    const  item = await db.select().from(items).where(eq(items.id, Number(id)));
+    const  [item] = await db.select().from(items).where(eq(items.id, Number(id)));
 
     if (!item) {
         return res.status(404).json({ message: "Item not found" });
@@ -42,16 +42,25 @@ itemsRouter.patch("/api/items/:id", async (req, res) => {
         return res.status(400).json(result.error);
     }
 
-    const updatedItem = await db.update(items).set(result.data).where(eq(items.id, Number(id)));
+    const [item] = await db.select().from(items).where(eq(items.id, Number(id)));
 
-    if (!updatedItem) {
+    if (!item) {
         return res.status(404).json({ message: "Item not found" });
     }
+
+    const updatedItem = await db.update(items).set(result.data).where(eq(items.id, Number(id)));
+
     res.json({ message: "Item updated", item: updatedItem });
 });
 
 itemsRouter.delete("/api/items/:id", async (req, res) => {
     const { id } = req.params;
+
+    const [item] = await db.select().from(items).where(eq(items.id, Number(id)));
+
+    if (!item) {
+        return res.status(404).json({ message: "Item not found" });
+    }
 
     const deletedItem = await db.delete(items).where(eq(items.id, Number(id)));
 
