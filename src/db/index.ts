@@ -3,11 +3,11 @@ import { drizzle } from "drizzle-orm/mysql2";
 import "dotenv/config";
 
 const pool = mysql.createPool({
-    host: process.env.DB_HOST || "127.0.0.1",
-    port: parseInt(process.env.DB_PORT || "3306"),
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "root",
-    database: process.env.DB_NAME || "express_db",
+    host: process.env.DATABASE_HOST || "invalid-host",
+    port: parseInt(process.env.DATABASE_PORT || "3306"),
+    user: process.env.DATABASE_USERNAME || "invalid-user",
+    password: process.env.DATABASE_PASSWORD || "invalid-password",
+    database: process.env.DATABASE_NAME || "invalid-db",
 });
 
 export const db = drizzle(pool);
